@@ -4,7 +4,7 @@ import 'package:flutter_web_api/model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHandler {
-  final String baseUri = "https://localhost:7088/api/users";
+  final String baseUri = "https://localhost:7195/api/users";
 
   Future<List<User>>getUserData() async{
     List<User> data = [];
@@ -26,5 +26,24 @@ class ApiHandler {
       return data;
     }
     return data;
+  }
+
+  Future<http.Response> updateUser({required int userId, required User user}) async {
+      final uri = Uri.parse("$baseUri/$userId");
+      late http.Response response;
+
+      try {
+        response = await http.put(
+          uri,
+          headers: <String, String>{
+            'Content-type' : 'application/json; charset=UTF-8'
+          },
+          body: json.encode(user),
+        );
+      } catch (e) {
+        return response;
+      }
+
+      return response;
   }
 }
