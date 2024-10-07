@@ -41,39 +41,46 @@ class _MainPageState extends State<MainPage> {
         onPressed: getData,
         child: const Text('Refresh'),
       ),
+
       body: Column(
         children: [
-          ListView.builder(shrinkWrap: true,
-          itemCount: data.length,
-          itemBuilder: (BuildContext context, int index){
-            return ListTile(
-              onTap: (){
-                Navigator.push(
-                  context, MaterialPageRoute(
-                    builder: (context)=> EditPage(user: data[index],),
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditPage(
+                          user: data[index],
+                        ),
+                      ),
+                    );
+                  },
+                  leading: Text("${data[index].userId}"),
+                  title: Text(data[index].name),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("User Name: " + data[index].username),
+                      Text("Email: " + data[index].email),
+                      Text("Years of Experience: " + data[index].yearsOfExperience.toString()),
+                      Text("Average Score: " + data[index].averageScore.toString()),
+                      Text("Practice Frequency: " + data[index].practiceFrequency),
+                      Text("Score Goal: " + data[index].scoreGoal.toString()),
+                      Text("Putting Goal: " + data[index].puttingGoal.toString()),
+                      Text("Approach Goal: " + data[index].approachGoal.toString()),
+                      Text("Shot Goal: " + data[index].shotGoal.toString()),
+                      Text("password: " + data[index].passwordHash),
+                    ],
                   ),
                 );
               },
-              leading: Text("${data[index].userId}"),
-              title: Text(data[index].name),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("User Name: " + data[index].username),
-                  Text("Email: " + data[index].email),
-                  Text("Years of Experience: " + data[index].yearsOfExperience.toString()),
-                  Text("Average Score: " + data[index].averageScore.toString()),
-                  Text("Practice Frequency: " + data[index].practiceFrequency),
-                  Text("Score Goal: " + data[index].scoreGoal.toString()),
-                  Text("Putting Goal: " + data[index].puttingGoal.toString()),
-                  Text("Approach Goal: " + data[index].approachGoal.toString()),
-                  Text("Shot Goal: " + data[index].shotGoal.toString()),
-                  Text("password: " + data[index].passwordHash)
-                ],
-              ),
-            );
-          },
-          )
+            ),
+          ),
         ],
       ),
     );
